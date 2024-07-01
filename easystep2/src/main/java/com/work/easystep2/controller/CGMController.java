@@ -70,17 +70,22 @@ public class CGMController {
 	             
 	                cgmDevice = optionalCgmDevice.get();
 	            } else {
-	                // 如果找不到对应的CGMDevice，创建一个新的设备并命名
-	                cgmDevice = new CGMDevice();
-	                cgmDevice.setDeviceId(deviceId);
-
-	                // 命名新的CGMDevice名称
-	                Integer lastNumber = DeviceRepo.findLastDeviceNumber();
-	                int newNumber = (lastNumber != null) ? lastNumber + 1 : 1;
-	                cgmDevice.setDeviceName("CGM" + newNumber);
-
-	                
-	                cgmDevice = DeviceRepo.save(cgmDevice);
+	            	
+	            	Map<String, String> response = new HashMap<>();
+	                response.put("message", "Device not found for deviceId: " + deviceId.toString().toUpperCase());
+	                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+	            	
+//	                // 如果找不到对应的CGMDevice，创建一个新的设备并命名
+//	                cgmDevice = new CGMDevice();
+//	                cgmDevice.setDeviceId(deviceId);
+//
+//	                // 命名新的CGMDevice名称
+//	                Integer lastNumber = DeviceRepo.findLastDeviceNumber();
+//	                int newNumber = (lastNumber != null) ? lastNumber + 1 : 1;
+//	                cgmDevice.setDeviceName("CGM" + newNumber);
+//
+//	                
+//	                cgmDevice = DeviceRepo.save(cgmDevice);
 	            }
 
 	           
